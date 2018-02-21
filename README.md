@@ -1,12 +1,11 @@
 A simple [`UniformRandomBitGenerator`](http://en.cppreference.com/w/cpp/concept/UniformRandomBitGenerator) wrapper for the [xoroshiro128+](http://xoroshiro.di.unimi.it/) PRNG.
 
-Features
+## Features
 
 - Compatible with the C++11 `<random>` library.
+  The engine can be plugged into any random number distribution ([`http://en.cppreference.com/w/cpp/concept/RandomNumberDistributionin`](http://en.cppreference.com/w/cpp/concept/RandomNumberDistribution)) in order to obtain a random number.
 
-  Any uniform random bit generator (`UniformRandomBitGenerator`) may be plugged into any random number distribution in order to obtain a random number.
-
-- Directly derived from the [public-domain C implementations](http://xoroshiro.di.unimi.it).
+- Directly derived from the [public-domain C implementations](http://xoroshiro.di.unimi.it/xoroshiro128plus.c).
 
 ## Usage
 
@@ -51,6 +50,8 @@ and the output is something like:
  9 *********
 10 *********
 ```
+
+([source code](https://github.com/morinim/xoroshiro128p/blob/master/example.cc))
 
 ## Remarks
 
