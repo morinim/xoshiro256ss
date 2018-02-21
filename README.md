@@ -3,7 +3,7 @@ A simple [`UniformRandomBitGenerator`](http://en.cppreference.com/w/cpp/concept/
 ## Features
 
 - Compatible with the C++11 `<random>` library.
-  The engine can be plugged into any random number distribution ([`http://en.cppreference.com/w/cpp/concept/RandomNumberDistributionin`](http://en.cppreference.com/w/cpp/concept/RandomNumberDistribution)) in order to obtain a random number.
+  The engine can be plugged into any random number distribution ([`http://en.cppreference.com/w/cpp/concept/RandomNumberDistribution`](http://en.cppreference.com/w/cpp/concept/RandomNumberDistribution)) in order to obtain a random number.
 
 - Directly derived from the [public-domain C implementations](http://xoroshiro.di.unimi.it/xoroshiro128plus.c).
 
