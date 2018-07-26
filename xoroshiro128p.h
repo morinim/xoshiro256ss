@@ -1,5 +1,5 @@
 // Original and permanent link: http://xoroshiro.di.unimi.it/
-// Written in 2016 by David Blackman and Sebastiano Vigna (vigna@acm.org)
+// Written in 2016-2018 by David Blackman and Sebastiano Vigna (vigna@acm.org)
 //
 // To the extent possible under law, the author has dedicated all copyright
 // and related and neighboring rights to this software to the public domain
@@ -17,7 +17,7 @@
  *  License, v. 2.0. If a copy of the MPL was not distributed with this file,
  *  You can obtain one at http://mozilla.org/MPL/2.0/
  *
- *  \see http://xoroshiro.di.unimi.it/
+ *  \see http://xoshiro.di.unimi.it/
  */
 
 #if !defined(PRNG_XOROSHIRO_H)
@@ -34,17 +34,17 @@ namespace vigna
 ///
 /// The successor to xorshift128+.
 ///
-/// It is the fastest full-period generator passing BigCrush without systematic
+/// It's the fastest full-period generator passing BigCrush without systematic
 /// failures, but due to the relatively short period it is acceptable only for
-/// applications with a mild amount of parallelism; otherwise, use a
-/// xorshift1024* generator.
+/// applications with a mild amount of parallelism.
 ///
-/// Beside passing BigCrush, this generator passes the PractRand test suite up
-/// to (and included) 16TB, with the exception of binary rank tests, as the
-/// lowest bit of this generator is an LFSR of degree 128. The next bit can be
-/// described by an LFSR of degree 8256, but in the long run it will fail
-/// linearity tests, too. The other bits needs a much higher degree to be
-/// represented as LFSRs.
+/// It passes all tests we are aware of except for the four lower bits, which
+/// might fail linearity tests (and just those), so if low linear complexity is
+/// not considered an issue (as it is usually the case) it can be used to
+/// generate 64-bit outputs, too; moreover, this generator has a very mild
+/// Hamming-weight dependency making our test (http://prng.di.unimi.it/hwd.php)
+/// fail after 8 TB of output; we believe this slight bias cannot affect any
+/// application. If you are concerned, use xoroshiro128** or xoshiro256+.
 ///
 /// We suggest to use a sign test to extract a random `bool` value and right
 /// shifts to extract subsets of bits.
@@ -76,8 +76,8 @@ public:
     const auto result(s0 + s1);
 
     s1 ^= s0;
-    state[0] = rotl(s0, 55) ^ s1 ^ (s1 << 14);  // a, b
-    state[1] = rotl(s1, 36);                    // c
+    state[0] = rotl(s0, 24) ^ s1 ^ (s1 << 16);  // a, b
+    state[1] = rotl(s1, 37);                    // c
 
     return result;
   }
