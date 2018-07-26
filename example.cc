@@ -5,7 +5,6 @@
 
 void test_xoshiro256ss()
 {
-  // XOSHIRO256**
   vigna::xoshiro256ss gen;
 
   std::random_device dev;
@@ -38,7 +37,7 @@ void test_xoroshiro128p()
   for(unsigned n(0); n < 1000000; ++n)
     ++hist[dist(gen)];
 
-  std::cout << "XOROSHIRO128**\n";
+  std::cout << "XOROSHIRO128+\n";
   for(auto p : hist)
     std::cout << std::setw(3) << p.first << ' '
               << std::string(p.second / 10000, '*') << '\n';

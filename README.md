@@ -1,11 +1,11 @@
-A simple [`UniformRandomBitGenerator`](http://en.cppreference.com/w/cpp/concept/UniformRandomBitGenerator) wrapper for the [xoroshiro128+](http://xoroshiro.di.unimi.it/) PRNG.
+A simple [`UniformRandomBitGenerator`](http://en.cppreference.com/w/cpp/concept/UniformRandomBitGenerator) wrapper for the [xhoshiro256**](http://xoshiro.di.unimi.it/) and [xoroshiro128+](http://xoroshiro.di.unimi.it/) PRNGs.
 
 ## Features
 
 - Compatible with the C++11 `<random>` library.
   The engine can be plugged into any random number distribution ([`http://en.cppreference.com/w/cpp/concept/RandomNumberDistribution`](http://en.cppreference.com/w/cpp/concept/RandomNumberDistribution)) in order to obtain a random number.
 
-- Directly derived from the [public-domain C implementations](http://xoroshiro.di.unimi.it/xoroshiro128plus.c).
+- Directly derived from the public-domain C implementations: [1](http://xoshiro.di.unimi.it/xoshiro256starstar.c), [2](http://xoroshiro.di.unimi.it/xoroshiro128plus.c).
 
 ## Usage
 
@@ -13,9 +13,29 @@ A simple [`UniformRandomBitGenerator`](http://en.cppreference.com/w/cpp/concept/
 #include <iomanip>
 #include <map>
 
-#include "xoroshiro128p.h"
+#include "xoshiro256ss.h"
 
-int main()
+void test_xoshiro256ss()
+{
+  vigna::xoshiro256ss gen;
+
+  std::random_device dev;
+  gen.seed(dev());
+
+  std::uniform_int_distribution<> dist(0, 10);
+
+  std::map<unsigned, unsigned> hist;
+
+  for(unsigned n(0); n < 1000000; ++n)
+    ++hist[dist(gen)];
+
+  std::cout << "XOSHIRO256**\n";
+  for(auto p : hist)
+    std::cout << std::setw(3) << p.first << ' '
+              << std::string(p.second / 10000, '*') << '\n';
+}
+
+void test_xoroshiro128p()
 {
   vigna::xoroshiro128p gen;
 
@@ -29,26 +49,46 @@ int main()
   for(unsigned n(0); n < 1000000; ++n)
     ++hist[dist(gen)];
 
+  std::cout << "XOROSHIRO128+\n";
   for(auto p : hist)
     std::cout << std::setw(3) << p.first << ' '
               << std::string(p.second / 10000, '*') << '\n';
+}
+
+int main()
+{
+  test_xoshiro256ss();
+  test_xoroshiro128p();
 }
 ```
 
 and the output is something like:
 
 ```
- 0 *********
- 1 *********
- 2 *********
- 3 *********
- 4 *********
- 5 *********
- 6 *********
- 7 *********
- 8 *********
- 9 *********
-10 *********
+XOSHIRO256**
+  0 *********
+  1 *********
+  2 *********
+  3 *********
+  4 *********
+  5 *********
+  6 *********
+  7 *********
+  8 *********
+  9 *********
+ 10 *********
+XOROSHIRO128+
+  0 *********
+  1 *********
+  2 *********
+  3 *********
+  4 *********
+  5 *********
+  6 *********
+  7 *********
+  8 *********
+  9 *********
+ 10 *********
 ```
 
 ([source code](https://github.com/morinim/xoroshiro128p/blob/master/example.cc))
