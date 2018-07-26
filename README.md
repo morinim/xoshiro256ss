@@ -91,7 +91,7 @@ XOROSHIRO128+
  10 *********
 ```
 
-([source code](https://github.com/morinim/xoroshiro128p/blob/master/example.cc))
+([source code](https://github.com/morinim/xoshiro256ss/blob/master/example.cc))
 
 ## Remarks
 
