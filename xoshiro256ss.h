@@ -110,6 +110,7 @@ public:
 
   void seed() noexcept ;
   void seed(result_type) noexcept;
+  void seed(const std::array<std::uint64_t, 4> &) noexcept;
 
   bool operator==(const xoshiro256ss &rhs) const noexcept
   { return state == rhs.state; }

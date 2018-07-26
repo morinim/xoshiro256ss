@@ -80,6 +80,16 @@ void xoshiro256ss::seed(xoshiro256ss::result_type s) noexcept
 }
 
 ///
+/// Seeds the engine with a specific initial state..
+///
+/// \param[in] s an initial state
+///
+void xoshiro256ss::seed(const std::array<std::uint64_t, 4> &s) noexcept
+{
+  state = s;
+}
+
+///
 /// Writes to the output stream the representation of the current state.
 ///
 /// \param[out] o output stream
