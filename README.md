@@ -95,6 +95,6 @@ XOROSHIRO128+
 
 ## Remarks
 
-- The implementation is only partially a C++11 [`RandomNumberEngine`](http://en.cppreference.com/w/cpp/concept/RandomNumberEngine) missing:
+- The implementation is only partially a C++11 [`RandomNumberEngine`](https://en.cppreference.com/w/cpp/named_req/RandomNumberEngine) missing:
   - a constructor that creates an engine whose initial state is determined by a single call to [`SeedSequence::generate`](http://en.cppreference.com/w/cpp/concept/SeedSequence);
   - a way to advance the engine state as if by `n` consecutive calls.
