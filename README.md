@@ -1,4 +1,4 @@
-A simple [`UniformRandomBitGenerator`](http://en.cppreference.com/w/cpp/concept/UniformRandomBitGenerator) wrapper for the [xhoshiro256**](http://xoshiro.di.unimi.it/) and [xoroshiro128+](http://xoroshiro.di.unimi.it/) PRNGs.
+A simple [`UniformRandomBitGenerator`](https://en.cppreference.com/w/cpp/named_req/UniformRandomBitGenerator) wrapper for the [xhoshiro256**](http://xoshiro.di.unimi.it/) and [xoroshiro128+](http://xoroshiro.di.unimi.it/) PRNGs.
 
 ## Features
 
