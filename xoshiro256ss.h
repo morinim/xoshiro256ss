@@ -75,6 +75,9 @@ using std::rotl;
 /// must be performed with a generator radically different in nature from the
 /// one initialized to avoid correlation on similar seeds).
 ///
+/// \warning
+/// Not cryptographically secure generator.
+///
 class xoshiro256ss
 {
 public:
@@ -152,6 +155,9 @@ private:
 ///
 /// We suggest to use a sign test to extract a random `bool` value and right
 /// shifts to extract subsets of bits.
+///
+/// \warning
+/// Not cryptographically secure generator.
 ///
 class xoroshiro128p
 {
