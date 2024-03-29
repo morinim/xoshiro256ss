@@ -100,3 +100,9 @@ XOROSHIRO128+
 - The implementation is only partially a C++11 [`RandomNumberEngine`](https://en.cppreference.com/w/cpp/named_req/RandomNumberEngine) missing:
   - a constructor that creates an engine whose initial state is determined by a single call to [`SeedSequence::generate`](https://en.cppreference.com/w/cpp/named_req/SeedSequence);
   - a way to advance the engine state as if by `n` consecutive calls.
+
+There are many xoshiro / xoroshiro generators. Since we wanted to keep code clean and maintenable, only xoshiro256** and xoroshiro128++ are implemented.
+
+They're all-purpose (not cryptographically secure) generators with excellent speed, a large state space and cover almost all general use cases.
+
+By default use xoshiro256**. If you're tight on space use xoroshiro128++.
