@@ -2,6 +2,10 @@
 #include <iomanip>
 #include <vector>
 
+#if __cplusplus >= 202002L  // C++20 (and later) code
+#  include <random>
+#endif
+
 #include "xoshiro256ss.h"
 
 bool check_xoshiro256ss()
@@ -54,6 +58,11 @@ bool check_xoshiro256ss()
       return false;
     }
   }
+
+#if __cplusplus >= 202002L
+  // Check `std::uniform_random_bit_generator` concept
+  static_assert(std::uniform_random_bit_generator<decltype(gen)>);
+#endif
 
   std::cout << std::setw(16) << std::left << "xoshiro256**" << "[OK]\n";
   return true;
@@ -109,6 +118,11 @@ bool check_xoroshiro128p()
       return false;
     }
   }
+
+#if __cplusplus >= 202002L
+  // Check `std::uniform_random_bit_generator` concept
+  static_assert(std::uniform_random_bit_generator<decltype(gen)>);
+#endif
 
   std::cout << std::setw(16) << std::left << "xoroshiro128+" << "[OK]\n";
   return true;
