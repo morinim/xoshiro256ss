@@ -96,11 +96,17 @@ XOROSHIRO128+
 
 ([source code](https://github.com/morinim/xoshiro256ss/blob/master/example.cc))
 
+
 ## Remarks
 
-- The implementation is only partially a C++11 [`RandomNumberEngine`](https://en.cppreference.com/w/cpp/named_req/RandomNumberEngine) missing a constructor that creates an engine whose initial state is determined by a single call to [`SeedSequence::generate`](https://en.cppreference.com/w/cpp/named_req/SeedSequence).
-- There are many xoshiro / xoroshiro generators. Since we wanted to keep code clean and maintenable, only *xoshiro256*** and *xoroshiro128+* are implemented.
+xoshiro / xoroshiro generators make up a big family. Since we wanted to keep code clean and maintenable, only *xoshiro256*** and *xoroshiro128+* are implemented.
 
-    They're all-purpose (not cryptographically secure) generators with excellent speed, a large state space and cover almost all general use cases.
+They're all-purpose (not cryptographically secure) generators with excellent speed, a large state space and cover almost all general use cases.
 
-    By default use *xoshiro256***. If you're tight on space use *xoroshiro128+*.
+By default use *xoshiro256***. If you're tight on space use *xoroshiro128+*.
+
+
+## References
+
+- [Scrambled Linear Pseudorandom Number Generators](https://doi.org/10.1145/3460772), David Blackman and Sebastiano Vigna;
+- [Computationally easy, spectrally good multipliers for congruential pseudorandom number generators](https://doi.org/10.1002/spe.3030), Guy L. Steele Jr. and Sebastiano Vigna.
