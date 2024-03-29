@@ -3,9 +3,11 @@ A simple [`UniformRandomBitGenerator`](https://en.cppreference.com/w/cpp/named_r
 ## Features
 
 - Compatible with the C++11 `<random>` library.
-  The engine can be plugged into any random number distribution ([`http://en.cppreference.com/w/cpp/concept/RandomNumberDistribution`](http://en.cppreference.com/w/cpp/concept/RandomNumberDistribution)) in order to obtain a random number.
+  The engine can be plugged into any random number distribution ([`https://en.cppreference.com/w/cpp/named_req/RandomNumberDistribution`](https://en.cppreference.com/w/cpp/named_req/RandomNumberDistribution)) in order to obtain a random number.
 
-- Directly derived from the public-domain C implementations: [1](http://xoshiro.di.unimi.it/xoshiro256starstar.c), [2](http://xoroshiro.di.unimi.it/xoroshiro128plus.c).
+- Directly derived from the public-domain C implementations: [1](https://xoshiro.di.unimi.it/xoshiro256starstar.c), [2](https://xoroshiro.di.unimi.it/xoroshiro128plus.c).
+
+- Take advantage of C++20 features.
 
 ## Usage
 
@@ -96,5 +98,5 @@ XOROSHIRO128+
 ## Remarks
 
 - The implementation is only partially a C++11 [`RandomNumberEngine`](https://en.cppreference.com/w/cpp/named_req/RandomNumberEngine) missing:
-  - a constructor that creates an engine whose initial state is determined by a single call to [`SeedSequence::generate`](http://en.cppreference.com/w/cpp/concept/SeedSequence);
+  - a constructor that creates an engine whose initial state is determined by a single call to [`SeedSequence::generate`](https://en.cppreference.com/w/cpp/named_req/SeedSequence);
   - a way to advance the engine state as if by `n` consecutive calls.
