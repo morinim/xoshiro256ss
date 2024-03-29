@@ -134,6 +134,6 @@ int main()
     {check_xoshiro256ss(), check_xoroshiro128p()};
 
   return std::all_of(results.begin(), results.end(),
-                     [](auto v) { return v == true; })
+                     [](bool v) { return v == true; })
          ? 0 : 1;
 }
