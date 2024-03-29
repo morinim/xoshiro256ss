@@ -83,8 +83,8 @@ class xoshiro256ss
 public:
   using result_type = std::uint64_t;
 
-  // If one doesn't specify a seed for the PRNG, it uses a default one.
-  explicit xoshiro256ss(result_type s = def_seed) noexcept { seed(s); }
+  xoshiro256ss() noexcept = default;
+  explicit xoshiro256ss(result_type s) noexcept { seed(s); }
 
   /// \return the smallest value that `operator()` may return. The value is
   ///         strictly less than `max()`
@@ -115,9 +115,7 @@ public:
   }
 
   void discard(unsigned long long) noexcept;
-
-  void seed() noexcept ;
-  void seed(result_type) noexcept;
+  void seed(result_type = def_seed) noexcept;
   void seed(const std::array<std::uint64_t, 4> &) noexcept;
 
 #if __cplusplus >= 202002L
@@ -136,7 +134,7 @@ public:
 private:
   static constexpr result_type def_seed = 0xcced1fc561884152;
 
-  std::array<std::uint64_t, 4> state {};
+  std::array<std::uint64_t, 4> state {def_seed};
 };  // class xoshiro256ss
 
 
@@ -166,8 +164,8 @@ class xoroshiro128p
 public:
   using result_type = std::uint64_t;
 
-  // If one doesn't specify a seed for the PRNG, it uses a default one.
-  explicit xoroshiro128p(result_type s = def_seed) noexcept { seed(s); }
+  xoroshiro128p() noexcept = default;
+  explicit xoroshiro128p(result_type s) noexcept { seed(s); }
 
   /// \return the smallest value that `operator()` may return. The value is
   ///         strictly less than `max()`
@@ -194,9 +192,7 @@ public:
   }
 
   void discard(unsigned long long) noexcept;
-
-  void seed() noexcept ;
-  void seed(result_type) noexcept;
+  void seed(result_type = def_seed) noexcept;
 
 #if __cplusplus >= 202002L
   [[nodiscard]] bool operator==(const xoroshiro128p &) const noexcept = default;

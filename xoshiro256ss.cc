@@ -80,20 +80,7 @@ void xoshiro256ss::seed(xoshiro256ss::result_type s) noexcept
 }
 
 ///
-/// Seeds the engine with a default, time invariant seed.
-///
-/// \param[in] s a seed
-///
-/// The state must be seeded so that it is not everywhere zero. Having a 64-bit
-/// seed, we use the `splitmix64` generator output to fill `state`.
-///
-void xoshiro256ss::seed() noexcept
-{
-  seed(def_seed);
-}
-
-///
-/// Seeds the engine with a specific initial state.
+/// Seeds the engine with a specific state.
 ///
 /// \param[in] s an initial state
 ///
@@ -161,19 +148,6 @@ void xoroshiro128p::seed(xoroshiro128p::result_type s) noexcept
     s = def_seed;
 
   seed_with_sm64(s, state);
-}
-
-///
-/// Seeds the engine with a default, time invariant seed.
-///
-/// \param[in] s a seed
-///
-/// The state must be seeded so that it is not everywhere zero. Having a 64-bit
-/// seed, we use the `splitmix64` generator output to fill `state`.
-///
-void xoroshiro128p::seed() noexcept
-{
-  seed(def_seed);
 }
 
 ///
