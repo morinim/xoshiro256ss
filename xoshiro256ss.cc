@@ -28,7 +28,7 @@ namespace
 /// to seed the xoroshiro / xoroshift1024* PRNGs (i.e. fill their initial
 /// state).
 ///
-/// \see http://dx.doi.org/10.1145/2714064.2660195
+/// \see https://dx.doi.org/10.1145/2714064.2660195
 ///
 class splitmix64
 {
@@ -56,7 +56,7 @@ void seed_with_sm64(std::uint64_t seed, T &state)
   std::generate(state.begin(), state.end(), [&sm]{ return sm.next(); });
 }
 
-}  // unnamed namespace
+}  // namespace
 
 
 

@@ -1,7 +1,3 @@
-// Original and permanent links:
-// - http://xoroshiro.di.unimi.it/
-// - http://xoshiro.di.unimi.it/
-//
 // Written in 2016-2018 by David Blackman and Sebastiano Vigna (vigna@acm.org)
 //
 // To the extent possible under law, the author has dedicated all copyright
@@ -31,6 +27,10 @@
 #include <limits>
 #include <random>
 
+#if __cplusplus >= 202002L  // C++20 (and later) code
+#  include <bit>
+#endif
+
 ///
 /// The main 64-bit proposal for an all-purpose, rock-solid generator is
 /// xoshiro256**. It has excellent speed, a state space that is large enough
@@ -50,12 +50,16 @@
 namespace vigna
 {
 
+#if __cplusplus < 202002L
 // Most compilers will turn this simulated rotate operation into a single
 // instruction.
 constexpr std::uint64_t rotl(std::uint64_t x, int k) noexcept
 {
   return (x << k) | (x >> (64 - k));
 }
+#else
+using std::rotl;
+#endif
 
 ///
 /// xoshiro256** v1.0, an all-purpose, rock-solid generator.
@@ -77,8 +81,7 @@ public:
   using result_type = std::uint64_t;
 
   // If one doesn't specify a seed for the PRNG, it uses a default one.
-  explicit xoshiro256ss(result_type s = def_seed) noexcept : state()
-  { seed(s); }
+  explicit xoshiro256ss(result_type s = def_seed) noexcept { seed(s); }
 
   /// \return the smallest value that `operator()` may return. The value is
   ///         strictly less than `max()`
@@ -112,10 +115,15 @@ public:
   void seed(result_type) noexcept;
   void seed(const std::array<std::uint64_t, 4> &) noexcept;
 
+#if __cplusplus >= 202002L
+  [[nodiscard]] bool operator==(const xoshiro256ss &) const noexcept = default;
+  [[nodiscard]] bool operator!=(const xoshiro256ss &) const noexcept = default;
+#else
   bool operator==(const xoshiro256ss &rhs) const noexcept
   { return state == rhs.state; }
   bool operator!=(const xoshiro256ss &rhs) const noexcept
   { return !(*this == rhs); }
+#endif
 
   friend std::ostream &operator<<(std::ostream &, const xoshiro256ss &);
   friend std::istream &operator>>(std::istream &, xoshiro256ss &);
@@ -123,7 +131,7 @@ public:
 private:
   static constexpr result_type def_seed = 0xcced1fc561884152;
 
-  std::array<std::uint64_t, 4> state;
+  std::array<std::uint64_t, 4> state {};
 };  // class xoshiro256ss
 
 
@@ -151,8 +159,7 @@ public:
   using result_type = std::uint64_t;
 
   // If one doesn't specify a seed for the PRNG, it uses a default one.
-  explicit xoroshiro128p(result_type s = def_seed) noexcept : state()
-  { seed(s); }
+  explicit xoroshiro128p(result_type s = def_seed) noexcept { seed(s); }
 
   /// \return the smallest value that `operator()` may return. The value is
   ///         strictly less than `max()`
@@ -181,10 +188,15 @@ public:
   void seed() noexcept ;
   void seed(result_type) noexcept;
 
+#if __cplusplus >= 202002L
+  [[nodiscard]] bool operator==(const xoroshiro128p &) const noexcept = default;
+  [[nodiscard]] bool operator!=(const xoroshiro128p &) const noexcept = default;
+#else
   bool operator==(const xoroshiro128p &rhs) const noexcept
   { return state == rhs.state; }
   bool operator!=(const xoroshiro128p &rhs) const noexcept
   { return !(*this == rhs); }
+#endif
 
   friend std::ostream &operator<<(std::ostream &, const xoroshiro128p &);
   friend std::istream &operator>>(std::istream &, xoroshiro128p &);
@@ -192,7 +204,7 @@ public:
 private:
   static constexpr result_type def_seed = 0xcced1fc561884152;
 
-  std::array<std::uint64_t, 2> state;
+  std::array<std::uint64_t, 2> state {};
 };  // class xoroshiro128p
 
 }  // namespace vigna
