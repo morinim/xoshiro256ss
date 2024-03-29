@@ -1,7 +1,7 @@
 /**
  *  \file
  *
- *  \copyright Copyright (C) 2018 Manlio Morini.
+ *  \copyright Copyright (C) 2018-2024 Manlio Morini.
  *
  *  \license
  *  This Source Code Form is subject to the terms of the Mozilla Public
@@ -80,13 +80,39 @@ void xoshiro256ss::seed(xoshiro256ss::result_type s) noexcept
 }
 
 ///
-/// Seeds the engine with a specific initial state..
+/// Seeds the engine with a default, time invariant seed.
+///
+/// \param[in] s a seed
+///
+/// The state must be seeded so that it is not everywhere zero. Having a 64-bit
+/// seed, we use the `splitmix64` generator output to fill `state`.
+///
+void xoshiro256ss::seed() noexcept
+{
+  seed(def_seed);
+}
+
+///
+/// Seeds the engine with a specific initial state.
 ///
 /// \param[in] s an initial state
 ///
 void xoshiro256ss::seed(const std::array<std::uint64_t, 4> &s) noexcept
 {
   state = s;
+}
+
+///
+/// Advances the internal state of the engine.
+///
+/// \param[in] z magnitute in the change of the internal state
+///
+/// By any means equivalent to `z` consecutive calls of `operator()`.
+///
+void xoshiro256ss::discard(unsigned long long z) noexcept
+{
+  while (z--)
+    operator()();
 }
 
 ///
@@ -135,6 +161,32 @@ void xoroshiro128p::seed(xoroshiro128p::result_type s) noexcept
     s = def_seed;
 
   seed_with_sm64(s, state);
+}
+
+///
+/// Seeds the engine with a default, time invariant seed.
+///
+/// \param[in] s a seed
+///
+/// The state must be seeded so that it is not everywhere zero. Having a 64-bit
+/// seed, we use the `splitmix64` generator output to fill `state`.
+///
+void xoroshiro128p::seed() noexcept
+{
+  seed(def_seed);
+}
+
+///
+/// Advances the internal state of the engine.
+///
+/// \param[in] z magnitute in the change of the internal state
+///
+/// By any means equivalent to `z` consecutive calls of `operator()`.
+///
+void xoroshiro128p::discard(unsigned long long z) noexcept
+{
+  while (z--)
+    operator()();
 }
 
 ///

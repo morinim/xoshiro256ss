@@ -9,14 +9,14 @@
 /**
  *  \file
  *
- *  \copyright Copyright (C) 2018 Manlio Morini.
+ *  \copyright Copyright (C) 2018-2024 Manlio Morini.
  *
  *  \license
  *  This Source Code Form is subject to the terms of the Mozilla Public
  *  License, v. 2.0. If a copy of the MPL was not distributed with this file,
  *  You can obtain one at http://mozilla.org/MPL/2.0/
  *
- *  \see http://xoshiro.di.unimi.it/
+ *  \see https://prng.di.unimi.it/
  */
 
 #if !defined(PRNG_XOSHIRO_H)
@@ -114,6 +114,8 @@ public:
 	return result_starstar;
   }
 
+  void discard(unsigned long long) noexcept;
+
   void seed() noexcept ;
   void seed(result_type) noexcept;
   void seed(const std::array<std::uint64_t, 4> &) noexcept;
@@ -151,7 +153,7 @@ private:
 /// generate 64-bit outputs, too; moreover, this generator has a very mild
 /// Hamming-weight dependency making our test (http://prng.di.unimi.it/hwd.php)
 /// fail after 8 TB of output; we believe this slight bias cannot affect any
-/// application. If you are concerned, use xoroshiro128** or xoshiro256+.
+/// application.
 ///
 /// We suggest to use a sign test to extract a random `bool` value and right
 /// shifts to extract subsets of bits.
@@ -190,6 +192,8 @@ public:
 
     return result;
   }
+
+  void discard(unsigned long long) noexcept;
 
   void seed() noexcept ;
   void seed(result_type) noexcept;

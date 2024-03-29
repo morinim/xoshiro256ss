@@ -1,11 +1,11 @@
-A simple [`UniformRandomBitGenerator`](https://en.cppreference.com/w/cpp/named_req/UniformRandomBitGenerator) wrapper for the [xhoshiro256**](http://xoshiro.di.unimi.it/) and [xoroshiro128+](http://xoroshiro.di.unimi.it/) PRNGs.
+A simple [`UniformRandomBitGenerator`](https://en.cppreference.com/w/cpp/named_req/UniformRandomBitGenerator) wrapper for the xoshiro256** and xoroshiro128+ PRNGs (see https://prng.di.unimi.it/).
 
 ## Features
 
 - Compatible with the C++11 `<random>` library.
-  The engine can be plugged into any random number distribution ([`https://en.cppreference.com/w/cpp/named_req/RandomNumberDistribution`](https://en.cppreference.com/w/cpp/named_req/RandomNumberDistribution)) in order to obtain a random number.
+  The engine can be plugged into any random number distribution (https://en.cppreference.com/w/cpp/named_req/RandomNumberDistribution) in order to obtain a random number.
 
-- Directly derived from the public-domain C implementations: [1](https://xoshiro.di.unimi.it/xoshiro256starstar.c), [2](https://xoroshiro.di.unimi.it/xoroshiro128plus.c).
+- Directly derived from the public-domain C implementations: [1](https://prng.di.unimi.it/xoshiro256starstar.c), [2](https://prng.di.unimi.it/xoroshiro128plus.c).
 
 - Take advantage of C++20 features.
 
@@ -97,12 +97,9 @@ XOROSHIRO128+
 
 ## Remarks
 
-- The implementation is only partially a C++11 [`RandomNumberEngine`](https://en.cppreference.com/w/cpp/named_req/RandomNumberEngine) missing:
-  - a constructor that creates an engine whose initial state is determined by a single call to [`SeedSequence::generate`](https://en.cppreference.com/w/cpp/named_req/SeedSequence);
-  - a way to advance the engine state as if by `n` consecutive calls.
+- The implementation is only partially a C++11 [`RandomNumberEngine`](https://en.cppreference.com/w/cpp/named_req/RandomNumberEngine) missing a constructor that creates an engine whose initial state is determined by a single call to [`SeedSequence::generate`](https://en.cppreference.com/w/cpp/named_req/SeedSequence).
+- There are many xoshiro / xoroshiro generators. Since we wanted to keep code clean and maintenable, only xoshiro256** and xoroshiro128+ are implemented.
 
-There are many xoshiro / xoroshiro generators. Since we wanted to keep code clean and maintenable, only xoshiro256** and xoroshiro128++ are implemented.
+    They're all-purpose (not cryptographically secure) generators with excellent speed, a large state space and cover almost all general use cases.
 
-They're all-purpose (not cryptographically secure) generators with excellent speed, a large state space and cover almost all general use cases.
-
-By default use xoshiro256**. If you're tight on space use xoroshiro128++.
+    By default use xoshiro256**. If you're tight on space use xoroshiro128+.

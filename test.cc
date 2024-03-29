@@ -1,11 +1,14 @@
+#include <algorithm>
 #include <iomanip>
-#include <map>
+#include <vector>
 
 #include "xoshiro256ss.h"
 
-int main()
+bool check_xoshiro256ss()
 {
-  const vigna::xoshiro256ss::result_type reference[] =
+  vigna::xoshiro256ss gen;
+
+  const std::vector<vigna::xoshiro256ss::result_type> reference =
   {
     11520u,
     0u,
@@ -19,7 +22,7 @@ int main()
     2904607092377533576u
   };
 
-  vigna::xoshiro256ss gen;
+  // Check first numbers of the sequence for a given state.
   gen.seed({1, 2, 3, 4});
 
   for (auto r : reference)
@@ -29,9 +32,94 @@ int main()
     if (v != r)
     {
       std::cerr << "Error: " << v << " != " << r << '\n';
-      return 1;
+      return false;
     }
   }
 
-  std::cout << "OK\n";
+  // Check `discard` method.
+  gen.seed({1, 2, 3, 4});
+
+  const unsigned long long SKIPPED(5);
+  gen.discard(SKIPPED);
+
+  for (auto r(std::next(reference.begin(), SKIPPED));
+       r != reference.end();
+       ++r)
+  {
+    const auto v(gen());
+
+    if (v != *r)
+    {
+      std::cerr << "Error: " << v << " != " << *r << '\n';
+      return false;
+    }
+  }
+
+  std::cout << std::setw(16) << std::left << "xoshiro256**" << "[OK]\n";
+  return true;
+}
+
+bool check_xoroshiro128p()
+{
+  vigna::xoroshiro128p gen;
+
+  const std::vector<vigna::xoroshiro128p::result_type> reference =
+  {
+    3791206066794290419u,
+    15895565023667069775u,
+    10353094603425901311u,
+    2310587765582178245u,
+    6248954372557818163u,
+    17214788232953710521u,
+    15724695866974583607u,
+    6742597202947952447u,
+    1275020938797310118u,
+    8226711840634510758u
+  };
+
+  // Check first numbers of the sequence for a given state.
+  gen.seed();
+
+  for (auto r : reference)
+  {
+    const auto v(gen());
+
+    if (v != r)
+    {
+      std::cerr << "Error: " << v << " != " << r << '\n';
+      return false;
+    }
+  }
+
+  // Check `discard` method.
+  gen.seed();
+
+  const unsigned long long SKIPPED(5);
+  gen.discard(SKIPPED);
+
+  for (auto r(std::next(reference.begin(), SKIPPED));
+       r != reference.end();
+       ++r)
+  {
+    const auto v(gen());
+
+    if (v != *r)
+    {
+      std::cerr << "Error: " << v << " != " << *r << '\n';
+      return false;
+    }
+  }
+
+  std::cout << std::setw(16) << std::left << "xoroshiro128+" << "[OK]\n";
+  return true;
+}
+
+int main()
+{
+  const std::vector<bool> results =
+    {check_xoshiro256ss(), check_xoroshiro128p()};
+
+  return std::all_of(results.begin(), results.end(),
+                     [](auto v) { return v == true; })
+         ? 0 : 1;
 }
