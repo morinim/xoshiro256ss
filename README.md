@@ -2,12 +2,13 @@ A simple [`UniformRandomBitGenerator`](https://en.cppreference.com/w/cpp/named_r
 
 ## Features
 
-- Compatible with the C++11 `<random>` library.
-  The engine can be plugged into any random number distribution (https://en.cppreference.com/w/cpp/named_req/RandomNumberDistribution) in order to obtain a random number.
+- Compatible with the C++11 [`<random>` library](https://en.cppreference.com/w/cpp/numeric/random). The engine can be plugged into any [random number distribution](https://en.cppreference.com/w/cpp/named_req/RandomNumberDistribution) in order to obtain a random number.
 
 - Directly derived from the public-domain C implementations: [1](https://prng.di.unimi.it/xoshiro256starstar.c), [2](https://prng.di.unimi.it/xoroshiro128plus.c).
 
 - Take advantage of C++20 features.
+
+![Dilbert Random Number Generator](dilbert.jpg)
 
 ## Usage
 
