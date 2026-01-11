@@ -11,9 +11,10 @@
  *  \see http://xoroshiro.di.unimi.it/
  */
 
-#include <algorithm>
-
 #include "xoshiro256ss.h"
+
+#include <algorithm>
+#include <iostream>
 
 namespace vigna
 {

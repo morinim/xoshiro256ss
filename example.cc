@@ -1,4 +1,5 @@
 #include <iomanip>
+#include <iostream>
 #include <map>
 
 #include "xoshiro256ss.h"

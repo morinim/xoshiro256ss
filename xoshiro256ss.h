@@ -23,7 +23,7 @@
 #define      PRNG_XOSHIRO_H
 
 #include <array>
-#include <iostream>
+#include <iosfwd>
 #include <limits>
 #include <random>
 

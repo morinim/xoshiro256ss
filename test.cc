@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <iomanip>
+#include <iostream>
 #include <vector>
 
 #if __cplusplus >= 202002L  // C++20 (and later) code
