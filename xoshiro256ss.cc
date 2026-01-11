@@ -92,7 +92,7 @@ void xoshiro256ss::seed(const std::array<std::uint64_t, 4> &s) noexcept
 ///
 /// Advances the internal state of the engine.
 ///
-/// \param[in] z magnitute in the change of the internal state
+/// \param[in] z magnitude in the change of the internal state
 ///
 /// By any means equivalent to `z` consecutive calls of `operator()`.
 ///
