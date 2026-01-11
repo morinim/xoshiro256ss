@@ -210,7 +210,7 @@ public:
 private:
   static constexpr result_type def_seed = 0xcced1fc561884152;
 
-  std::array<std::uint64_t, 2> state {};
+  std::array<std::uint64_t, 2> state {def_seed};
 };  // class xoroshiro128p
 
 }  // namespace vigna
